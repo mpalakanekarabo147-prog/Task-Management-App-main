@@ -244,11 +244,7 @@ For the rubric video, record a 5 to 10 minute walkthrough covering:
 
 ## Authors
 
-<<<<<<< HEAD
-- Karabo Mpalakane
-=======
 Group Members:
->>>>>>> 97d6590cf4ae590d05e62115d1ca70712c621272
 - Lihle Tuta
 - Andile Nhleko
 - Karabo Ntotole Mpalakane
