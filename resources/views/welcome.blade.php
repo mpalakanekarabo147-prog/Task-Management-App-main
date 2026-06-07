@@ -73,7 +73,7 @@
         </div>
         <div class="col-lg-4">
             <div class="card surface-card p-4">
-                <h5 class="mb-3">Category-driven clarity</h5>
+                <h5 class="mb-3">Category driven clarity</h5>
                 <p class="text-muted">Group tasks by service, feature, or incident to keep priorities visible and manageable.</p>
             </div>
         </div>

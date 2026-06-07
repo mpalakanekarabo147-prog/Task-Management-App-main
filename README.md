@@ -36,8 +36,55 @@ TaskFlow is a Laravel 9 web application for managing team tasks, categories, dea
 
 Open PowerShell in the project folder:
 
+<<<<<<< HEAD
 ```powershell
 cd C:\Users\lenovo\Downloads\Task-Management-App-main
+=======
+### Task Assignment
+- Assign Tasks to Users
+- View Assigned Tasks
+
+### Task Tracking
+- Pending Status
+- In Progress Status
+- Completed Status
+
+### Priority Levels
+- Low
+- Medium
+- High
+
+### Authorization
+- Admin Role
+- Team Member Role
+- Guest Role
+
+### Notifications
+- Deadline Reminder System
+
+---
+
+## Technologies Used
+
+| Technology | Purpose |
+|------------|----------|
+| Laravel | Backend Framework |
+| PHP | Programming Language |
+| Blade | Templating Engine |
+| Bootstrap | User Interface |
+| SQLite | Database |
+| Laravel Breeze | Authentication |
+| Composer | Dependency Management |
+
+---
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/your-repository-name.git
+>>>>>>> 97d6590cf4ae590d05e62115d1ca70712c621272
 ```
 
 Install dependencies:
@@ -197,6 +244,11 @@ For the rubric video, record a 5 to 10 minute walkthrough covering:
 
 ## Authors
 
+<<<<<<< HEAD
 - Karabo Mpalakane
+=======
+Group Members:
+>>>>>>> 97d6590cf4ae590d05e62115d1ca70712c621272
 - Lihle Tuta
 - Andile Nhleko
+- Karabo Ntotole Mpalakane
