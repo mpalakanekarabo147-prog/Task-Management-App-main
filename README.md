@@ -212,20 +212,6 @@ The tests cover:
 - Team member user-management restriction
 - Past deadline validation
 
-## Demo Video Checklist
-
-For the rubric video, record a 5 to 10 minute walkthrough covering:
-
-1. Project setup and local server command.
-2. Database migration and seed command.
-3. Login with the seeded admin account.
-4. Admin task creation and assigning a task to a team member.
-5. Login with the team member account.
-6. Show that team members can only assign tasks to themselves.
-7. Show category management.
-8. Show role protection by trying to access admin-only users as a team member.
-9. Run `php artisan test`.
-
 ## Security Notes
 
 - CSRF protection is enabled on forms.
