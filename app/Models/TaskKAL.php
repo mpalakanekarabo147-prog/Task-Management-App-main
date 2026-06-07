@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TaskKAL extends Model
 {
-    use HasFactory:
+    use HasFactory;
 
     protected $table = 'tasks';
 
