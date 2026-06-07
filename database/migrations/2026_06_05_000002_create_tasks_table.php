@@ -20,6 +20,8 @@ return new class extends Migration
             $table->date('deadline')->nullable();
             $table->timestamp('reminder_sent_at')->nullable();
             $table->timestamps();
+            $table->index(['status', 'priority']);
+            $table->index('deadline');
         });
     }
 

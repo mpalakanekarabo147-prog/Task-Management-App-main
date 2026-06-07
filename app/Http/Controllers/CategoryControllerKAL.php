@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequestKAL;
 use App\Models\CategoryKAL;
-use Illuminate\Http\Request;
 
 class CategoryControllerKAL extends Controller
 {
@@ -21,14 +21,9 @@ class CategoryControllerKAL extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreCategoryRequestKAL $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:80', 'unique:categories,name'],
-            'color' => ['required', 'string', 'max:20'],
-        ]);
-
-        $this->categories->create($request->only('name', 'color'));
+        $this->categories->create($request->validated());
 
         return back()->with('status', 'Category created successfully.');
     }

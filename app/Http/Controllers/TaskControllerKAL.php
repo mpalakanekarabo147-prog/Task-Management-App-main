@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequestKAL;
 use App\Models\CategoryKAL;
 use App\Models\TaskKAL;
 use App\Models\User;
-use App\Rules\DeadlineAfterTodayKAL;
 use Illuminate\Http\Request;
 
 class TaskControllerKAL extends Controller
@@ -45,10 +45,8 @@ class TaskControllerKAL extends Controller
         return view('tasks.create', $this->formData());
     }
 
-    public function store(Request $request)
+    public function store(StoreTaskRequestKAL $request)
     {
-        $this->authorize('create', TaskKAL::class);
-
         $data = $this->validatedData($request);
         $this->ensureAssignmentIsAllowed($request, $data);
         $data['created_by'] = $request->user()->id;
@@ -78,10 +76,8 @@ class TaskControllerKAL extends Controller
         return view('tasks.edit', array_merge($this->formData(), compact('task')));
     }
 
-    public function update(Request $request, TaskKAL $task)
+    public function update(StoreTaskRequestKAL $request, TaskKAL $task)
     {
-        $this->authorize('update', $task);
-
         $data = $this->validatedData($request);
         $this->ensureAssignmentIsAllowed($request, $data);
         $task->update($data);
@@ -125,21 +121,9 @@ class TaskControllerKAL extends Controller
         return view('tasks.assigned', compact('tasks', 'categories'));
     }
 
-    private function validatedData(Request $request)
+    private function validatedData(StoreTaskRequestKAL $request)
     {
-        $data = $request->validate([
-            'category_id' => ['required', 'exists:categories,id'],
-            'assigned_to' => ['nullable', 'exists:users,id'],
-            'title' => ['required', 'string', 'max:120'],
-            'description' => ['nullable', 'string'],
-            'tags' => ['nullable', 'string', 'max:255'],
-            'priority' => ['required', 'in:low,medium,high'],
-            'status' => ['required', 'in:pending,in_progress,completed'],
-            'deadline' => ['nullable', 'date', new DeadlineAfterTodayKAL],
-        ], [
-            'category_id.required' => 'Please choose a task category.',
-            'title.required' => 'Every task needs a clear title.',
-        ]);
+        $data = $request->validated();
 
         $data['tags'] = $this->formatTags($data['tags'] ?? null);
 

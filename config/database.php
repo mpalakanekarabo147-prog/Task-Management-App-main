@@ -39,7 +39,7 @@ return [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
             'database' => env('DB_DATABASE')
-                ? (preg_match('/^(?:[A-Za-z]:)?[\/\\\\]/', env('DB_DATABASE')) ? env('DB_DATABASE') : base_path(env('DB_DATABASE')))
+                ? (env('DB_DATABASE') === ':memory:' || preg_match('/^(?:[A-Za-z]:)?[\/\\\\]/', env('DB_DATABASE')) ? env('DB_DATABASE') : base_path(env('DB_DATABASE')))
                 : database_path('database.sqlite'),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),

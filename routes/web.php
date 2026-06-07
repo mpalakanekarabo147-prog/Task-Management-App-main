@@ -25,7 +25,7 @@ Route::get('/', function () {
         : view('welcome');
 });
 
-Route::middleware('guest')->group(function () {
+Route::middleware(['guest', 'throttle:10,1'])->group(function () {
     Route::get('/login', [AuthControllerKAL::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthControllerKAL::class, 'login']);
     Route::get('/register', [AuthControllerKAL::class, 'showRegister'])->name('register');
@@ -48,10 +48,10 @@ Route::middleware(['auth', 'log.kal'])->group(function () {
         ->name('reminders.form');
 
     Route::post('/reminders/deadlines', [ReminderControllerKAL::class, 'send'])
-        ->middleware('role.kal:admin')
+        ->middleware(['role.kal:admin', 'throttle:5,1'])
         ->name('reminders.deadlines');
     Route::post('/tasks/{task}/reminder', [ReminderControllerKAL::class, 'sendForTask'])
-        ->middleware('role.kal:admin')
+        ->middleware(['role.kal:admin', 'throttle:5,1'])
         ->name('reminders.task');
     Route::resource('tasks', TaskControllerKAL::class);
     Route::resource('categories', CategoryControllerKAL::class)->only(['index', 'store', 'destroy'])

@@ -1,221 +1,201 @@
-# Task Management Application
+# TaskFlow Task Management Application
 
-## Overview
+TaskFlow is a Laravel 9 web application for managing team tasks, categories, deadlines, priorities, and user roles. It includes authentication, role-based access control, task assignment rules, deadline reminders, seeded demo data, and feature tests.
 
-The Task Management Application is a Laravel-based web application that allows users to create, assign, manage, and monitor tasks efficiently. The system supports role-based access control and provides tools for tracking task progress, priorities, deadlines, and categories.
+## Main Features
 
----
+- User registration, login, and logout
+- Admin, team member, and guest roles
+- Role-protected dashboards and management routes
+- RESTful task, category, and user routes
+- Task creation, editing, deletion, filtering, and assignment
+- Team members can only assign tasks to themselves
+- Admin users can assign tasks to any admin or team member
+- Task categories with colors
+- Priority and status tracking
+- Deadline validation and reminder support
+- Notification preference settings
+- Custom 403, 404, and 500 error pages
 
-## Features
+## Technology Stack
 
-### Authentication
-- User Registration
-- User Login
-- User Logout
+| Tool | Purpose |
+| --- | --- |
+| Laravel 9 | Backend framework |
+| PHP 8 | Server-side language |
+| Blade | Views and reusable layouts |
+| Bootstrap | Interface styling |
+| SQLite | Local development database |
+| Eloquent ORM | Models, relationships, scopes, and queries |
+| Laravel Policies | Authorization |
+| Form Requests | Centralized validation |
+| PHPUnit | Automated tests |
+| Vite | Frontend asset build |
 
-### Task Management
-- Create Tasks
-- Edit Tasks
-- Delete Tasks
-- View Tasks
+## Local Setup
 
-### Categories
-- Create Categories
-- Edit Categories
-- Delete Categories
+Open PowerShell in the project folder:
 
-### Task Assignment
-- Assign Tasks to Users
-- View Assigned Tasks
-
-### Task Tracking
-- Pending Status
-- In Progress Status
-- Completed Status
-
-### Priority Levels
-- Low
-- Medium
-- High
-
-### Authorization
-- Admin Role
-- Team Member Role
-- Guest Role
-
-### Notifications
-- Deadline Reminder System
-
----
-
-## Technologies Used
-
-| Technology | Purpose |
-|------------|----------|
-| Laravel | Backend Framework |
-| PHP | Programming Language |
-| Blade | Templating Engine |
-| Bootstrap/Tailwind CSS | User Interface |
-| MySQL/SQLite | Database |
-| Laravel Breeze | Authentication |
-| Composer | Dependency Management |
-
----
-
-## Installation
-
-### Clone Repository
-
-```bash
-git clone https://github.com/your-repository-name.git
+```powershell
+cd C:\Users\lenovo\Downloads\Task-Management-App-main
 ```
 
-### Navigate to Project
+Install dependencies:
 
-```bash
-cd task-management-app
-```
-
-### Install Dependencies
-
-```bash
+```powershell
 composer install
+npm install
 ```
 
-### Copy Environment File
+Create the environment file if it does not exist:
 
-```bash
-cp .env.example .env
+```powershell
+copy .env.example .env
 ```
 
-### Generate Application Key
+For local SQLite development, use these database settings in `.env`:
 
-```bash
+```env
+DB_CONNECTION=sqlite
+DB_DATABASE=database/database.sqlite
+```
+
+Create the SQLite database file:
+
+```powershell
+New-Item -ItemType File -Path database\database.sqlite -Force
+```
+
+Generate the Laravel app key:
+
+```powershell
 php artisan key:generate
 ```
 
-### Configure Database
+Create and seed the database:
 
-Update the .env file:
-
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=task_management
-DB_USERNAME=root
-DB_PASSWORD=
+```powershell
+php artisan migrate:fresh --seed
 ```
 
-### Run Migrations
+Build frontend assets:
 
-```bash
-php artisan migrate
+```powershell
+npm run build
 ```
 
-### Seed Database
+Start the local server:
 
-```bash
-php artisan db:seed
+```powershell
+php -S 127.0.0.1:8082 -t public
 ```
 
-### Start Server
+Open the app:
 
-```bash
-php artisan serve
+```text
+http://127.0.0.1:8082
 ```
 
----
+## Seeded Login Accounts
 
-## User Guide
+| Role | Email | Password |
+| --- | --- | --- |
+| Admin | admin@flow.ac.za | P@ssword |
+| Team member | developer@flow.ac.za | P@ssword |
+| Guest | guest@flow.ac.za | P@ssword |
 
-### Administrator
+## User Roles
 
-Administrators can:
+### Admin
 
-- Manage users
-- Create tasks
-- Edit tasks
-- Delete tasks
-- Assign tasks
+- View and manage users
+- Create, edit, delete, and assign tasks
+- Assign tasks to admins or team members
 - Manage categories
-- View all tasks
+- Send deadline reminders
 
-### Team Members
+### Team Member
 
-Team members can:
+- Create tasks assigned to themselves
+- View tasks assigned to them or created by them
+- Update tasks they are responsible for
+- Manage task categories
 
-- View assigned tasks
-- Update task status
-- Track deadlines
+### Guest
 
-### Guests
-
-Guests have limited access to the application.
-
----
-
-## Task Workflow
-
-1. User logs in.
-2. Administrator creates a task.
-3. Task is assigned to a user.
-4. User updates task status.
-5. Administrator monitors progress.
-6. System tracks deadlines and reminders.
-
----
-
-## Security Features
-
-- Authentication
-- Authorization Policies
-- Middleware Protection
-- CSRF Protection
-- Form Validation
-
----
+- Can log in and view permitted dashboard areas
+- Cannot create tasks, manage categories, or manage users
 
 ## Database Structure
 
-Main Tables:
+Main tables:
 
-- Users
-- Tasks
-- Categories
+- `users`
+- `categories`
+- `tasks`
+- `password_resets`
+- `failed_jobs`
+- `personal_access_tokens`
 
-Relationships:
+Key relationships:
 
-- User has many Tasks
-- Category has many Tasks
-- Task belongs to User
-- Task belongs to Category
+- A category has many tasks
+- A task belongs to a category
+- A task belongs to an assignee user
+- A task belongs to a creator user
+- A user has many assigned tasks
+- A user has many created tasks
 
----
+## Validation And Authorization
 
-## Project Structure
+- Task and category validation use Form Request classes.
+- Deadline validation uses a custom `DeadlineAfterTodayKAL` rule.
+- Policies protect task, category, and user actions.
+- Middleware protects authenticated routes and role-specific routes.
+- Login and registration routes are rate limited.
+- Reminder routes are rate limited and admin-only.
 
-app/
-├── Http/
-├── Models/
-├── Policies/
-├── Providers/
+## Testing
 
-database/
-├── migrations/
-├── seeders/
+Run the test suite:
 
-resources/
-├── views/
+```powershell
+php artisan test
+```
 
-routes/
-├── web.php
+The tests cover:
 
----
+- Application homepage response
+- Team member assignment forced to self
+- Admin assignment to another team member
+- Guest category access restriction
+- Team member user-management restriction
+- Past deadline validation
+
+## Demo Video Checklist
+
+For the rubric video, record a 5 to 10 minute walkthrough covering:
+
+1. Project setup and local server command.
+2. Database migration and seed command.
+3. Login with the seeded admin account.
+4. Admin task creation and assigning a task to a team member.
+5. Login with the team member account.
+6. Show that team members can only assign tasks to themselves.
+7. Show category management.
+8. Show role protection by trying to access admin-only users as a team member.
+9. Run `php artisan test`.
+
+## Security Notes
+
+- CSRF protection is enabled on forms.
+- Blade escaping is used for dynamic text output.
+- Eloquent ORM is used for database queries.
+- Policies and middleware enforce role permissions.
+- Route throttling protects authentication and reminder actions.
+- `.env` should not be committed to public repositories.
 
 ## Authors
-
-Group Members:
 
 - Karabo Mpalakane
 - Lihle Tuta
