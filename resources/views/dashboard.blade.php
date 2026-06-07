@@ -3,17 +3,17 @@
         <div class="content">
             <div class="hero-kicker mb-2">TaskFlow operations dashboard</div>
             <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-                <h1 class="display-6 fw-bold mb-0">Run your technology workstreams with clarity and speed.</h1>
+                <h1 class="display-6 fw-bold mb-0">Assign your technology workstreams with clarity and speed.</h1>
                 <span class="badge bg-secondary">{{ auth()->user()->role_label }}</span>
             </div>
             <p class="lead mb-4">See your engineering tasks, incident response items, and delivery milestones in one technology-focused workspace.</p>
             @can('create', App\Models\TaskKAL::class)
                 <div class="d-flex flex-wrap gap-2">
-                    <a class="btn btn-primary btn-lg" href="{{ route('tasks.create') }}">Create task</a>
+                    <a class="btn btn-primary btn-lg" href="{{ route('tasks.create') }}">Create task +</a>
                     @if(auth()->user()->isAdmin())
                         <form method="POST" action="{{ route('reminders.deadlines') }}">
                             @csrf
-                            <button class="btn btn-light btn-lg" type="submit">Send deadline reminders</button>
+                            <button class="btn btn-light btn-lg" type="submit">Deadline reminders</button>
                         </form>
                     @endif
                 </div>
