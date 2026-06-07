@@ -215,5 +215,7 @@ routes/
 
 ## Authors
 
-Group Members:hle Tuta
+Group Members:
+- Lihle Tuta
 - Andile Nhleko
+- Karabo Ntotole Mpalakane
