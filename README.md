@@ -129,13 +129,6 @@ Build frontend assets:
 
 ```powershell
 npm run build
-```
-
-Start the local server:
-
-```powershell
-php -S 127.0.0.1:8082 -t public
-```
 
 Open the app:
 
